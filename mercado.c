@@ -22,7 +22,7 @@ bool Fila_Vazia(){
 }
 
 bool Fila_Cheia(){
-	if(Tras==MAXTAM-1){
+	if (Tras==MAXTAM-1){
 		return true;
 	}
 	else{
