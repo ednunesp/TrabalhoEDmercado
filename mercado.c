@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int const MAXTAM=1000;
+int const MAXTAM=1;
 
 int Frente, Tras;
 int Fila[MAXTAM];

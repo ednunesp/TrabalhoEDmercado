@@ -27,7 +27,7 @@ void inserir(Lista *listaproduto) // funcao que insere elementos na lista
     Prod *novoproduto;
     novoproduto = (struct produto *) malloc(sizeof(Prod));
     printf("Insira o produto (identificador e preco) \n");
-    scanf("%d %d %f", &novoproduto->identificador, &novoproduto->qntdestoque, &novoproduto->preco); // pega as informacoes da struct e passsa pro vetor de structs
+    scanf("%d %d %lf", &novoproduto->identificador, &novoproduto->qntdestoque, &novoproduto->preco); // pega as informacoes da struct e passsa pro vetor de structs
     novoproduto->prox == NULL;
 
     if (listaproduto->inicio == NULL)
@@ -54,7 +54,7 @@ void imprimelista(Lista *listaproduto) //nao sei se vai precisar imprimir a list
         
         do
         {
-            printf("\n Identificador do Produto: %d, Preco do Produto: %.2f, Quantidade disponivel no Estoque: %d", aux->info);
+            printf("\n Identificador do Produto: %d, Preco do Produto: %->2f, Quantidade disponivel no Estoque: %d", aux->identificador);
         } while (aux != listaproduto->inicio);
 
         printf("\n ---------------FIM DOS ITENS DO ESTOQUE--------------- \n");
@@ -62,7 +62,7 @@ void imprimelista(Lista *listaproduto) //nao sei se vai precisar imprimir a list
     }
 }
 
-void consultaproduto(Lista *listaproduto); // Consulta na lista se o produto existe, e sua quantidade no estoque
+void consultaproduto(Lista *listaproduto) // Consulta na lista se o produto existe, e sua quantidade no estoque
 {
     if (listaproduto->inicio == NULL)
     {
@@ -80,10 +80,10 @@ void consultaproduto(Lista *listaproduto); // Consulta na lista se o produto exi
         aux = listaproduto->inicio;
         do
         {
-            if (aux->info == pesquisa)
+            if (aux->identificador == pesquisa)
             {
-                printf("Quantidade em Estoque: %d", aux->info);
-             achou = 1;
+                printf("Quantidade em Estoque: %d", aux->identificador);
+                achou = 1;
                 
             }
             else
@@ -119,7 +119,7 @@ void retirarproduto(Lista *listaproduto)
         
         do
         {
-            if (atual->info == pesquisa)
+            if (atual->identificador == pesquisa)
             {
                 //se o produto estiver no inicio da lista
                 if (atual == listaproduto->inicio)
@@ -134,8 +134,8 @@ void retirarproduto(Lista *listaproduto)
                     anterior = atual;
                     atual = atual->prox;
                 }
-            }while (atual != listaproduto->inicio);
-        }
+            }
+        }while (atual != listaproduto->inicio);
     }
 }
 
@@ -154,14 +154,22 @@ int main()
         printf ("3- Remover produto \n");
         printf ("4- Listar todos produtos\n");
         printf ("0- Fechar programa \n");
-
+        scanf ("%d", &opcao); 
         switch(opcao)
         {
-            case 1: inserir&listadeproduto); break;
-            case 2: consultaproduto&listadeproduto); break;
-            case 3: retirarproduto&listadeproduto); break;
-            case 4: imprimelista&listadeproduto); break;
+            case 1: 
+                (inserir&listadeproduto);
+                break;
+            case 2: 
+                (consultaproduto&listadeproduto); 
+                break;
+            case 3: 
+                (retirarproduto&listadeproduto);
+                 break;
+            case 4:
+                (imprimelista&listadeproduto);
+                break;
             case 0: return 0;
-        }       
-    }
+        }
+    }while(opcao != 0);
 }
