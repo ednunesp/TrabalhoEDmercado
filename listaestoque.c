@@ -8,6 +8,7 @@ typedef struct produto
     int qntdestoque;
     double preco;
     struct produto *prox;
+    struct produto *anterior;
 }Prod;
 
 typedef struct Lista /* cria o inicio da lista*/
@@ -27,17 +28,23 @@ void inserir(Lista *listaproduto) /* funcao que insere elementos na lista*/
     Prod *novoproduto;
     novoproduto = (struct produto *) malloc(sizeof(Prod));
     printf("Insira o produto (identificador e preco) \n");
-    scanf("%d %d %lf", &novoproduto->identificador, &novoproduto->qntdestoque, &novoproduto->preco); /* pega as informacoes da struct e passsa pro vetor de structs*/
+    scanf("%d %lf", &novoproduto->identificador, &novoproduto->preco); /* pega as informacoes da struct e passsa pro vetor de structs*/
+    novoproduto->qntdestoque = 10;
     novoproduto->prox = NULL;
 
     if (listaproduto->inicio == NULL)
     {
         listaproduto->inicio = novoproduto;
+        listaproduto->fim = novoproduto;
     }
     else
     {
+        novoproduto->anterior = listaproduto->fim;
         listaproduto->fim->prox = novoproduto;    
     }
+    listaproduto->fim->prox = listaproduto->inicio; /* deixa a lista duplamente encadeada*/
+    listaproduto->inicio->anterior = listaproduto->fim;
+
 }
 
 void imprimelista(Lista *listaproduto) /*nao sei se vai precisar imprimir a lista, por garantia ta aqui a parte do codigo que imprime a lista*/
@@ -45,7 +52,7 @@ void imprimelista(Lista *listaproduto) /*nao sei se vai precisar imprimir a list
     Prod *aux;
     if (listaproduto->inicio == NULL)
     {
-        printf("\n ---------------FIM DOS ITENS DO ESTOQUE--------------- \n");
+        printf("\n ---------------ESTOQUE VAZIO--------------- \n");
         return;
     }
     else
@@ -55,6 +62,14 @@ void imprimelista(Lista *listaproduto) /*nao sei se vai precisar imprimir a list
         do
         {
             printf("\n Identificador do Produto: %d, Preco do Produto: %.2f, Quantidade disponivel no Estoque: %d", aux->identificador, aux->preco, aux->qntdestoque);
+            aux = aux->prox;
+            printf("\n Identificador do Produto: %d, Preco do Produto: %.2f, Quantidade disponivel no Estoque: %d", aux->identificador, aux->preco, aux->qntdestoque);
+            if (aux != listaproduto->inicio) {
+                printf("teste imprimelista 'e diferente");
+            } else {
+                printf("teste imprimelista 'e igual");
+
+            }
         } while (aux != listaproduto->inicio);
 
         printf("\n ---------------FIM DOS ITENS DO ESTOQUE--------------- \n");
@@ -66,7 +81,7 @@ void consultaproduto(Lista *listaproduto) /* Consulta na lista se o produto exis
 {
     if (listaproduto->inicio == NULL)
     {
-        printf("\n ---------------FIM DOS ITENS DO ESTOQUE--------------- \n");
+        printf("\n ---------------ESTOQUE VAZIO--------------- \n");
     }
     else
     {
@@ -75,14 +90,15 @@ void consultaproduto(Lista *listaproduto) /* Consulta na lista se o produto exis
         int achou = 0;
         
         printf("\n Informe o Identificador do Produto: ");
-        scanf("%d\n", &pesquisa);
+        scanf("%d", &pesquisa);
+        printf("\n");
 
         aux = listaproduto->inicio;
         do
         {
             if (aux->identificador == pesquisa)
             {
-                printf("Quantidade em Estoque: %d", aux->identificador);
+                printf("Quantidade em Estoque: %d \n", aux->qntdestoque);
                 achou = 1;
                 
             }
@@ -93,7 +109,7 @@ void consultaproduto(Lista *listaproduto) /* Consulta na lista se o produto exis
         }while (aux != listaproduto->inicio && achou == 0);
         if (achou == 0)
         {
-            printf("\n Produto nao encontrado");
+            printf("\n Produto nao encontrado \n");
         }
         getchar();
     }
@@ -103,7 +119,7 @@ void retirarproduto(Lista *listaproduto)
 {
     if (listaproduto->inicio == NULL)
     {
-        printf("\n ---------------FIM DOS ITENS DO ESTOQUE--------------- \n");
+        printf("\n ---------------ESTOQUE VAZIO--------------- \n");
     }
     else
     {
@@ -154,7 +170,8 @@ int main()
         printf ("3- Remover produto \n");
         printf ("4- Listar todos produtos\n");
         printf ("0- Fechar programa \n");
-        scanf ("%d", &opcao); 
+        scanf ("%d", &opcao);
+        printf("\n \n \n"); 
         switch(opcao)
         {
             case 1: 
