@@ -87,7 +87,7 @@ int Fila_Tamanho (){
 
 
 
-int main (){
+int main (int argc, char *argv[]){
 	scanf("%d %d", &clientes, &tempo);
 	clientesporsegundo (clientes);
 	timer(tempo);

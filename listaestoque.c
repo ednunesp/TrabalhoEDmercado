@@ -10,24 +10,24 @@ typedef struct produto
     struct produto *prox;
 }Prod;
 
-typedef struct Lista // cria o inicio da lista
+typedef struct Lista /* cria o inicio da lista*/
 {
     Prod *inicio;
     Prod *fim;
 }Lista;
 
-void iniciarlistaprod(Lista *listaproduto) // inicializa a lista vazia
+void iniciarlistaprod(Lista *listaproduto) /* inicializa a lista vazia*/
 {
     listaproduto->inicio = NULL;
     listaproduto->fim = NULL;
 }
 
-void inserir(Lista *listaproduto) // funcao que insere elementos na lista
+void inserir(Lista *listaproduto) /* funcao que insere elementos na lista*/
 {
     Prod *novoproduto;
     novoproduto = (struct produto *) malloc(sizeof(Prod));
     printf("Insira o produto (identificador e preco) \n");
-    scanf("%d %d %lf", &novoproduto->identificador, &novoproduto->qntdestoque, &novoproduto->preco); // pega as informacoes da struct e passsa pro vetor de structs
+    scanf("%d %d %lf", &novoproduto->identificador, &novoproduto->qntdestoque, &novoproduto->preco); /* pega as informacoes da struct e passsa pro vetor de structs*/
     novoproduto->prox = NULL;
 
     if (listaproduto->inicio == NULL)
@@ -40,7 +40,7 @@ void inserir(Lista *listaproduto) // funcao que insere elementos na lista
     }
 }
 
-void imprimelista(Lista *listaproduto) //nao sei se vai precisar imprimir a lista, por garantia ta aqui a parte do codigo que imprime a lista
+void imprimelista(Lista *listaproduto) /*nao sei se vai precisar imprimir a lista, por garantia ta aqui a parte do codigo que imprime a lista*/
 {
     Prod *aux;
     if (listaproduto->inicio == NULL)
@@ -54,7 +54,7 @@ void imprimelista(Lista *listaproduto) //nao sei se vai precisar imprimir a list
         
         do
         {
-            printf("\n Identificador do Produto: %d, Preco do Produto: %->2f, Quantidade disponivel no Estoque: %d", aux->identificador);
+            printf("\n Identificador do Produto: %d, Preco do Produto: %.2f, Quantidade disponivel no Estoque: %d", aux->identificador, aux->preco, aux->qntdestoque);
         } while (aux != listaproduto->inicio);
 
         printf("\n ---------------FIM DOS ITENS DO ESTOQUE--------------- \n");
@@ -62,7 +62,7 @@ void imprimelista(Lista *listaproduto) //nao sei se vai precisar imprimir a list
     }
 }
 
-void consultaproduto(Lista *listaproduto) // Consulta na lista se o produto existe, e sua quantidade no estoque
+void consultaproduto(Lista *listaproduto) /* Consulta na lista se o produto existe, e sua quantidade no estoque*/
 {
     if (listaproduto->inicio == NULL)
     {
@@ -113,15 +113,15 @@ void retirarproduto(Lista *listaproduto)
         printf("\n Informe o Identificador do Produto:");
         scanf("%d", &pesquisa);
 
-        //Se a lista de produtos nao estiver vazia
+        /*Se a lista de produtos nao estiver vazia*/
         atual = listaproduto->inicio;
-        anterior = listaproduto->inicio; //minuto 12:07 video do youtube
+        anterior = listaproduto->inicio;
         
         do
         {
             if (atual->identificador == pesquisa)
             {
-                //se o produto estiver no inicio da lista
+                /*se o produto estiver no inicio da lista*/
                 if (atual == listaproduto->inicio)
                 {
                     listaproduto->inicio = atual->prox;
@@ -129,17 +129,17 @@ void retirarproduto(Lista *listaproduto)
                     free (atual);
                     break;
                 }
-                else // se nao for o primeiro produto
+                else /* se nao for o primeiro produto*/
                 {
-                    anterior = atual;
-                    atual = atual->prox;
+                    anterior->prox = atual->prox;
+                    free (atual);
                 }
             }
         }while (atual != listaproduto->inicio);
     }
 }
 
-//main
+/*main*/
 int main()
 {
     int opcao;
@@ -169,7 +169,8 @@ int main()
             case 4:
                 imprimelista(&listadeproduto);
                 break;
-            case 0: return 0;
+            case 0: break;
         }
     }while(opcao != 0);
+    return 0;
 }
