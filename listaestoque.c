@@ -28,7 +28,7 @@ void inserir(Lista *listaproduto) // funcao que insere elementos na lista
     novoproduto = (struct produto *) malloc(sizeof(Prod));
     printf("Insira o produto (identificador e preco) \n");
     scanf("%d %d %lf", &novoproduto->identificador, &novoproduto->qntdestoque, &novoproduto->preco); // pega as informacoes da struct e passsa pro vetor de structs
-    novoproduto->prox == NULL;
+    novoproduto->prox = NULL;
 
     if (listaproduto->inicio == NULL)
     {
@@ -158,16 +158,16 @@ int main()
         switch(opcao)
         {
             case 1: 
-                (inserir&listadeproduto);
+                inserir(&listadeproduto);
                 break;
             case 2: 
-                (consultaproduto&listadeproduto); 
+                consultaproduto(&listadeproduto); 
                 break;
             case 3: 
-                (retirarproduto&listadeproduto);
-                 break;
+            	retirarproduto(&listadeproduto);
+                break;
             case 4:
-                (imprimelista&listadeproduto);
+                imprimelista(&listadeproduto);
                 break;
             case 0: return 0;
         }
